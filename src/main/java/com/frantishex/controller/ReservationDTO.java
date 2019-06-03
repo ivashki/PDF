@@ -1,6 +1,7 @@
 package com.frantishex.controller;
 
 import java.math.BigDecimal;
+import java.sql.Date;
 
 public class ReservationDTO {
 
@@ -12,7 +13,27 @@ public class ReservationDTO {
 
 	private String toCity;
 
+	private BigDecimal seatNumber;
+
 	private BigDecimal ticketPrice;
+
+	private String date;
+
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
+	}
+
+	public BigDecimal getSeatNumber() {
+		return seatNumber;
+	}
+
+	public void setSeatNumber(BigDecimal seatNumber) {
+		this.seatNumber = seatNumber;
+	}
 
 	public String getFirstName() {
 		return firstName;
