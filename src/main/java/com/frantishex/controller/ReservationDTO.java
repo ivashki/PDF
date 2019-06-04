@@ -19,6 +19,16 @@ public class ReservationDTO {
 
 	private String date;
 
+	private String time;
+
+	public String getTime() {
+		return time;
+	}
+
+	public void setTime(String time) {
+		this.time = time;
+	}
+
 	public String getDate() {
 		return date;
 	}
