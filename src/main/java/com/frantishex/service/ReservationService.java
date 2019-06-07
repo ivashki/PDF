@@ -14,13 +14,11 @@ import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Font;
-import com.itextpdf.text.Font.FontFamily;
 import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
-import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.text.pdf.draw.LineSeparator;
@@ -39,17 +37,13 @@ public class ReservationService {
 
 		document.open();
 
-		Image img = Image.getInstance("D:/Image folder/frantishex20140305-1019-qfe3g5.png");
-
-		Image img2 = Image.getInstance("D:/Image folder/IMG_0007.png");
-
-		img2.setAbsolutePosition(30, 300);
-
-		document.add(img2);
+		Image img = Image.getInstance("src/main/resources/frantishex20140305-1019-qfe3g5.png");
 
 		img.scaleAbsolute(200f, 100f);
 
 		document.add(img);
+
+		System.setProperty("http.agent", "Chrome");
 
 		LineSeparator l = new LineSeparator();
 		l.setOffset(-5);
@@ -110,12 +104,10 @@ public class ReservationService {
 
 		table5.addCell(new Paragraph("Date and Time :",
 				FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18, Font.ITALIC, (new BaseColor(0, 0, 0)))));
-		table5.addCell(new Phrase(r.getDate()));
-		table5.addCell(new Phrase(r.getTime()));
+		table5.addCell(new Phrase("" + r.getDate() + ""));
+		table5.addCell(new Phrase(""));
 		table5.setSpacingAfter(10f);
 		document.add(table5);
-
-		document.add(new Chunk(l));
 
 		Paragraph p2 = new Paragraph(
 				"Passenger should be present not later than one hour prior departure time of the bus. The arrival time is indicative and "

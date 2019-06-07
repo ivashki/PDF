@@ -3,6 +3,8 @@ package com.frantishex.controller;
 import java.math.BigDecimal;
 import java.sql.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class ReservationDTO {
 
 	private String firstName;
@@ -17,23 +19,14 @@ public class ReservationDTO {
 
 	private BigDecimal ticketPrice;
 
-	private String date;
+	@JsonFormat(locale = "hu", shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
+	private Date date;
 
-	private String time;
-
-	public String getTime() {
-		return time;
-	}
-
-	public void setTime(String time) {
-		this.time = time;
-	}
-
-	public String getDate() {
+	public Date getDate() {
 		return date;
 	}
 
-	public void setDate(String date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
 
