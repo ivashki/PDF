@@ -19,7 +19,7 @@ public class ReservationDTO {
 
 	private BigDecimal ticketPrice;
 
-	@JsonFormat(locale = "hu", shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
 	private Date date;
 
 	public Date getDate() {
