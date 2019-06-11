@@ -18,13 +18,13 @@ public class FileService {
 
 	public DBFile storeFile(MultipartFile file) throws Exception {
 		String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-		DBFile dbFile = new DBFile(fileName, file.getBytes());
+		DBFile dbFile = new DBFile(fileName, file.getContentType(), file.getBytes());
 		em.persist(dbFile);
 		return dbFile;
 
 	}
 
-	public DBFile getFile(Long fileId) {
+	public DBFile getFile(String fileId) {
 		return em.find(DBFile.class, fileId);
 	}
 

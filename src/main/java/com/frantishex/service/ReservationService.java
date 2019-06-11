@@ -105,7 +105,7 @@ public class ReservationService {
 		table5.addCell(new Paragraph("Date and Time :",
 				FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18, Font.ITALIC, (new BaseColor(0, 0, 0)))));
 		table5.addCell(new Phrase("" + r.getDate() + ""));
-		table5.addCell(new Phrase(""));
+		table5.addCell(new Phrase(r.getTime()));
 		table5.setSpacingAfter(10f);
 		document.add(table5);
 

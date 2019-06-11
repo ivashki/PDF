@@ -21,8 +21,28 @@ public class DBFile {
 	@Column(name = "name", columnDefinition = "VARCHAR(128)")
 	private String name;
 
+	private String fileType;
+
 	@Lob
 	private byte[] data;
+
+	public DBFile() {
+
+	}
+
+	public DBFile(String name, String fileType, byte[] data) {
+		this.name = name;
+		this.fileType = fileType;
+		this.data = data;
+	}
+
+	public String getFileType() {
+		return fileType;
+	}
+
+	public void setFileType(String fileType) {
+		this.fileType = fileType;
+	}
 
 	public byte[] getData() {
 		return data;
