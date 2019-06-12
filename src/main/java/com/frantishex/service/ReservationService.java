@@ -8,7 +8,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 
-import com.frantishex.controller.ReservationDTO;
+import com.frantishex.model.ReservationDTO;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
@@ -104,8 +104,8 @@ public class ReservationService {
 
 		table5.addCell(new Paragraph("Date and Time :",
 				FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18, Font.ITALIC, (new BaseColor(0, 0, 0)))));
-		table5.addCell(new Phrase("" + r.getDate() + ""));
-		table5.addCell(new Phrase(r.getTime()));
+		table5.addCell(new Phrase(r.getDate().toString()));
+		table5.addCell(new Phrase(r.getTime().toString()));
 		table5.setSpacingAfter(10f);
 		document.add(table5);
 

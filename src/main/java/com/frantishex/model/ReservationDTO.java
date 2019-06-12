@@ -1,9 +1,8 @@
-package com.frantishex.controller;
+package com.frantishex.model;
 
 import java.math.BigDecimal;
-import java.sql.Date;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class ReservationDTO {
 
@@ -19,24 +18,40 @@ public class ReservationDTO {
 
 	private BigDecimal ticketPrice;
 
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
-	private Date date;
+	private LocalDate date;
 
-	private String time;
+	private LocalDateTime time;
 
-	public String getTime() {
-		return time;
+	public ReservationDTO() {
+
 	}
 
-	public void setTime(String time) {
+	public ReservationDTO(String firstName, String lastName, String fromCity, String toCity, BigDecimal seatNumber,
+			BigDecimal ticketPrice, LocalDate date, LocalDateTime time) {
+
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.fromCity = fromCity;
+		this.toCity = toCity;
+		this.seatNumber = seatNumber;
+		this.ticketPrice = ticketPrice;
+		this.date = date;
 		this.time = time;
 	}
 
-	public Date getDate() {
+	public LocalDateTime getTime() {
+		return time;
+	}
+
+	public void setTime(LocalDateTime time) {
+		this.time = time;
+	}
+
+	public LocalDate getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(LocalDate date) {
 		this.date = date;
 	}
 

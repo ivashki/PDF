@@ -19,9 +19,11 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.frantishex.model.DBFile;
+import com.frantishex.model.ReservationDTO;
 import com.frantishex.response.UploadFileResponse;
 import com.frantishex.service.FileService;
 import com.frantishex.service.ReservationService;
+import com.frantishex.service.TestService;
 import com.itextpdf.text.DocumentException;
 
 @Controller
@@ -32,6 +34,8 @@ public class PrintToPDFController {
 	private FileService fileService;
 	@Autowired
 	private ReservationService reservationService;
+	@Autowired
+	private TestService testService;
 
 	@RequestMapping(value = "/printPDF", method = RequestMethod.POST, produces = MediaType.APPLICATION_PDF_VALUE)
 	public ResponseEntity<?> printPDF(@RequestBody ReservationDTO reservationDetails)
@@ -70,4 +74,11 @@ public class PrintToPDFController {
 		return new ResponseEntity<byte[]>(dbFile.getData(), headers, HttpStatus.OK);
 
 	}
+
+	@RequestMapping(value = "/test", method = RequestMethod.POST)
+	public ResponseEntity<String> createTest(@RequestBody Long l) {
+		testService.stringReturn(l);
+		return new ResponseEntity<String>("Long accepted succesfully.", HttpStatus.OK);
+	}
+
 }
