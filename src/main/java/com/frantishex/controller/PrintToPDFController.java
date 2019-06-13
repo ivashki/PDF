@@ -1,8 +1,11 @@
 package com.frantishex.controller;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -21,9 +24,9 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.frantishex.model.DBFile;
 import com.frantishex.model.ReservationDTO;
 import com.frantishex.response.UploadFileResponse;
+import com.frantishex.service.ExcelGenerator;
 import com.frantishex.service.FileService;
 import com.frantishex.service.ReservationService;
-import com.frantishex.service.TestService;
 import com.itextpdf.text.DocumentException;
 
 @Controller
@@ -34,8 +37,6 @@ public class PrintToPDFController {
 	private FileService fileService;
 	@Autowired
 	private ReservationService reservationService;
-	@Autowired
-	private TestService testService;
 
 	@RequestMapping(value = "/printPDF", method = RequestMethod.POST, produces = MediaType.APPLICATION_PDF_VALUE)
 	public ResponseEntity<?> printPDF(@RequestBody ReservationDTO reservationDetails)
@@ -51,6 +52,19 @@ public class PrintToPDFController {
 		return new ResponseEntity<byte[]>(pdfData, headers, HttpStatus.OK);
 	}
 
+	@GetMapping(value = "/downloadReport")
+	public ResponseEntity<InputStreamResource> excelReport() throws IOException {
+		List<DBFile> files = fileService.getAll();
+
+		ByteArrayInputStream in = ExcelGenerator.fileToExcel(files);
+
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(new MediaType("application", "vnd.openxmlformats-officedocument.spreadsheetml.sheet"));
+		headers.add("Content-Disposition", "attachment; filename=\"report.xlsx\"");
+
+		return ResponseEntity.ok().headers(headers).body(new InputStreamResource(in));
+	}
+
 	@PostMapping("/uploadFile")
 	public UploadFileResponse uploadFile(@RequestParam("file") MultipartFile file) throws Exception {
 		DBFile dbFile = fileService.storeFile(file);
@@ -58,7 +72,7 @@ public class PrintToPDFController {
 		String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/dowloadFile/")
 				.path(dbFile.getId()).toUriString();
 
-		return new UploadFileResponse(dbFile.getName(), fileDownloadUri, file.getContentType(), file.getSize());
+		return new UploadFileResponse(dbFile.getFileName(), fileDownloadUri, file.getContentType(), file.getSize());
 
 	}
 
@@ -73,12 +87,6 @@ public class PrintToPDFController {
 
 		return new ResponseEntity<byte[]>(dbFile.getData(), headers, HttpStatus.OK);
 
-	}
-
-	@RequestMapping(value = "/test", method = RequestMethod.POST)
-	public ResponseEntity<String> createTest(@RequestBody Long l) {
-		testService.stringReturn(l);
-		return new ResponseEntity<String>("Long accepted succesfully.", HttpStatus.OK);
 	}
 
 }

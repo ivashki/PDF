@@ -1,6 +1,7 @@
 package com.frantishex.model;
 
 import java.math.BigDecimal;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -21,23 +22,6 @@ public class ReservationDTO {
 	private LocalDate date;
 
 	private LocalDateTime time;
-
-	public ReservationDTO() {
-
-	}
-
-	public ReservationDTO(String firstName, String lastName, String fromCity, String toCity, BigDecimal seatNumber,
-			BigDecimal ticketPrice, LocalDate date, LocalDateTime time) {
-
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.fromCity = fromCity;
-		this.toCity = toCity;
-		this.seatNumber = seatNumber;
-		this.ticketPrice = ticketPrice;
-		this.date = date;
-		this.time = time;
-	}
 
 	public LocalDateTime getTime() {
 		return time;
