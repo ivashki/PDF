@@ -57,10 +57,8 @@ public class ExcelGenerator {
 				Row row = sheet.createRow(rowIdx++);
 
 				row.createCell(0).setCellValue(files.getId());
-				row.createCell(1).setCellValue(files.getNameOfThePassenger());
-				row.createCell(2).setCellValue(files.getNameOfThePassenger());
-				row.createCell(3).setCellValue(files.getTrip());
-				row.createCell(4).setCellValue(String.valueOf(files.getDateOfIssue()));
+				row.createCell(1).setCellValue(files.getFileType());
+				row.createCell(2).setCellValue(files.getTypeOfDocument());
 
 				Cell ageCell = row.createCell(3);
 				ageCell.setCellValue(12);

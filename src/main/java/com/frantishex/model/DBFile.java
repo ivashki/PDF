@@ -1,8 +1,5 @@
 package com.frantishex.model;
 
-import java.time.LocalDate;
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,15 +20,9 @@ public class DBFile {
 	private String id;
 
 	@Column(name = "typeOfDocument", columnDefinition = "VARCHAR(128)")
-	private String fileName;
+	private String typeOfDocument;
 
 	private String fileType;
-
-	private String nameOfThePassenger;
-
-	private String trip;
-
-	private LocalDate dateOfIssue;
 
 	@Lob
 	private byte[] data;
@@ -40,45 +31,10 @@ public class DBFile {
 
 	}
 
-	public DBFile(String fileName, String fileType, byte[] data) {
-		this.fileName = fileName;
+	public DBFile(String typeOfDocument, String fileType, byte[] data) {
+		this.typeOfDocument = typeOfDocument;
 		this.fileType = fileType;
 		this.data = data;
-	}
-
-	public DBFile(String id, String fileName, String fileType, String nameOfThePassenger, String trip,
-			LocalDate dateOfIssue, byte[] data) {
-		this.id = id;
-		this.fileName = fileName;
-		this.fileType = fileType;
-		this.nameOfThePassenger = nameOfThePassenger;
-		this.trip = trip;
-		this.dateOfIssue = dateOfIssue;
-		this.data = data;
-	}
-
-	public LocalDate getDateOfIssue() {
-		return dateOfIssue;
-	}
-
-	public void setDateOfIssue(LocalDate dateOfIssue) {
-		this.dateOfIssue = dateOfIssue;
-	}
-
-	public String getTrip() {
-		return trip;
-	}
-
-	public void setTrip(String trip) {
-		this.trip = trip;
-	}
-
-	public String getNameOfThePassenger() {
-		return nameOfThePassenger;
-	}
-
-	public void setNameOfThePassenger(String nameOfThePassenger) {
-		this.nameOfThePassenger = nameOfThePassenger;
 	}
 
 	public String getFileType() {
@@ -105,16 +61,16 @@ public class DBFile {
 		this.id = id;
 	}
 
-	public String getFileName() {
-		return fileName;
+	public String getTypeOfDocument() {
+		return typeOfDocument;
 	}
 
-	public void setFileName(String fileName) {
-		this.fileName = fileName;
+	public void setTypeOfDocument(String typeOfDocument) {
+		this.typeOfDocument = typeOfDocument;
 	}
 
-	public DBFile(String fileName, byte[] data) {
-		this.fileName = fileName;
+	public DBFile(String typeOfDocument, byte[] data) {
+		this.typeOfDocument = typeOfDocument;
 		this.data = data;
 	}
 

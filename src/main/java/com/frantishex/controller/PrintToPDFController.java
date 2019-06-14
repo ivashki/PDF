@@ -26,6 +26,7 @@ import com.frantishex.model.ReservationDTO;
 import com.frantishex.response.UploadFileResponse;
 import com.frantishex.service.ExcelGenerator;
 import com.frantishex.service.FileService;
+import com.frantishex.service.ReportService;
 import com.frantishex.service.ReservationService;
 import com.itextpdf.text.DocumentException;
 
@@ -37,6 +38,8 @@ public class PrintToPDFController {
 	private FileService fileService;
 	@Autowired
 	private ReservationService reservationService;
+	@Autowired
+	private ReportService reportService;
 
 	@RequestMapping(value = "/printPDF", method = RequestMethod.POST, produces = MediaType.APPLICATION_PDF_VALUE)
 	public ResponseEntity<?> printPDF(@RequestBody ReservationDTO reservationDetails)
@@ -45,6 +48,8 @@ public class PrintToPDFController {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_PDF);
 		headers.add("Content-Disposition", "attachment; filename=\"ticket.pdf\"");
+
+		reportService.createReport(reservationDetails);
 
 		byte[] pdfData = reservationService.reservationReport(reservationDetails);
 		headers.setContentLength(pdfData.length);
@@ -72,7 +77,8 @@ public class PrintToPDFController {
 		String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/dowloadFile/")
 				.path(dbFile.getId()).toUriString();
 
-		return new UploadFileResponse(dbFile.getFileName(), fileDownloadUri, file.getContentType(), file.getSize());
+		return new UploadFileResponse(dbFile.getTypeOfDocument(), fileDownloadUri, file.getContentType(),
+				file.getSize());
 
 	}
 
