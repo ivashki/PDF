@@ -18,13 +18,13 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Service;
 
-import com.frantishex.model.DBFile;
+import com.frantishex.model.Report;
 
 @Service
 @Transactional
 public class ExcelGenerator {
 
-	public static ByteArrayInputStream fileToExcel(List<DBFile> file) throws IOException {
+	public static ByteArrayInputStream reportToExcel(List<Report> report) throws IOException {
 		String[] cols = { "Id", "Type of document", "Name of passenger", "Trip", "Date of issue" };
 		try (Workbook workbook = new XSSFWorkbook(); ByteArrayOutputStream out = new ByteArrayOutputStream();) {
 			CreationHelper createHelper = workbook.getCreationHelper();
@@ -38,33 +38,28 @@ public class ExcelGenerator {
 			CellStyle headerCellStyle = workbook.createCellStyle();
 			headerCellStyle.setFont(headerFont);
 
-			// Row for Header
 			Row headerRow = sheet.createRow(0);
 
-			// Header
 			for (int col = 0; col < cols.length; col++) {
 				Cell cell = headerRow.createCell(col);
 				cell.setCellValue(cols[col]);
 				cell.setCellStyle(headerCellStyle);
 			}
 
-			// CellStyle for Age
 			CellStyle ageCellStyle = workbook.createCellStyle();
 			ageCellStyle.setDataFormat(createHelper.createDataFormat().getFormat("#"));
 
 			int rowIdx = 1;
-			for (DBFile files : file) {
+			for (Report reports : report) {
 				Row row = sheet.createRow(rowIdx++);
 
-				row.createCell(0).setCellValue(files.getId());
-				row.createCell(1).setCellValue(files.getFileType());
-				row.createCell(2).setCellValue(files.getTypeOfDocument());
+				row.createCell(0).setCellValue(reports.getId());
+				row.createCell(1).setCellValue(reports.getFileType());
+				row.createCell(2).setCellValue(reports.getNameOfThePassenger());
+				row.createCell(3).setCellValue(reports.getTrip());
+				row.createCell(4).setCellValue(String.valueOf(reports.getDateOfIssue()));
 
-				Cell ageCell = row.createCell(3);
-				ageCell.setCellValue(12);
-				ageCell.setCellStyle(ageCellStyle);
 			}
-
 			workbook.write(out);
 			return new ByteArrayInputStream(out.toByteArray());
 		}

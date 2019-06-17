@@ -22,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.frantishex.model.DBFile;
+import com.frantishex.model.Report;
 import com.frantishex.model.ReservationDTO;
 import com.frantishex.response.UploadFileResponse;
 import com.frantishex.service.ExcelGenerator;
@@ -49,19 +50,20 @@ public class PrintToPDFController {
 		headers.setContentType(MediaType.APPLICATION_PDF);
 		headers.add("Content-Disposition", "attachment; filename=\"ticket.pdf\"");
 
-		reportService.createReport(reservationDetails);
-
 		byte[] pdfData = reservationService.reservationReport(reservationDetails);
 		headers.setContentLength(pdfData.length);
 
+		reportService.createReport(reservationDetails);
+		
+		
 		return new ResponseEntity<byte[]>(pdfData, headers, HttpStatus.OK);
 	}
 
 	@GetMapping(value = "/downloadReport")
 	public ResponseEntity<InputStreamResource> excelReport() throws IOException {
-		List<DBFile> files = fileService.getAll();
+		List<Report> report = reportService.getAll();
 
-		ByteArrayInputStream in = ExcelGenerator.fileToExcel(files);
+		ByteArrayInputStream in = ExcelGenerator.reportToExcel(report);
 
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(new MediaType("application", "vnd.openxmlformats-officedocument.spreadsheetml.sheet"));
@@ -82,7 +84,7 @@ public class PrintToPDFController {
 
 	}
 
-	@GetMapping("/downloadFile/{fileId}")
+	@GetMapping("/downloadFile")
 	public ResponseEntity<?> downloadFile(@PathVariable String fileId) {
 
 		DBFile dbFile = fileService.getFile(fileId);

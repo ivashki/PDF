@@ -1,7 +1,5 @@
 package com.frantishex.service;
 
-import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 
@@ -29,10 +27,6 @@ public class FileService {
 
 	public DBFile getFile(String fileId) {
 		return em.find(DBFile.class, fileId);
-	}
-
-	public List<DBFile> getAll() {
-		return em.createQuery("select d from DBFile d", DBFile.class).getResultList();
 	}
 
 }

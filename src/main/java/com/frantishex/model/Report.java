@@ -1,5 +1,7 @@
 package com.frantishex.model;
 
+import java.time.LocalDate;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,6 +19,26 @@ public class Report {
 	private String fileType;
 
 	private String nameOfThePassenger;
+
+	private String trip;
+
+	private LocalDate dateOfIssue;
+
+	public LocalDate getDateOfIssue() {
+		return dateOfIssue;
+	}
+
+	public void setDateOfIssue(LocalDate dateOfIssue) {
+		this.dateOfIssue = dateOfIssue;
+	}
+
+	public String getTrip() {
+		return trip;
+	}
+
+	public void setTrip(String trip) {
+		this.trip = trip;
+	}
 
 	public Long getId() {
 		return id;
